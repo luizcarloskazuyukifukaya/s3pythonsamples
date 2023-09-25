@@ -55,7 +55,7 @@ def list_all_objects_version(bucket_name, prefix_name):
 objs_dict = list_all_objects_version(target_bucket, target_prefix)
 
 only_latest_flag = False
-only_latest_flag = True
+#only_latest_flag = True
 try:
     versions = objs_dict['Versions']
     #print(versions)
@@ -69,13 +69,13 @@ try:
                 print("Version Id: " + v['VersionId'])
                 print("Last Modified: " + str(v['LastModified']))
                 print("Latest version: " + str(v['IsLatest']))
+                print('--------')
         else:
             print("Key name: " + v['Key'])
             print("Version Id: " + v['VersionId'])
             print("Last Modified: " + str(v['LastModified']))
             print("Latest version: " + str(v['IsLatest']))
-            
-        print('--------')
+            print('--------')
     try:
         deletes = objs_dict['DeleteMarkers']
         #print(deletes)
@@ -90,13 +90,13 @@ try:
                     print("Version Id: " + d['VersionId'])
                     print("Last Modified: " + str(d['LastModified']))
                     print("Latest version: " + str(d['IsLatest']))
+                    print("*****************************")  
             else:
                 print("Key name: " + d['Key'])
                 print("Version Id: " + d['VersionId'])
                 print("Last Modified: " + str(d['LastModified']))
                 print("Latest version: " + str(d['IsLatest']))
-            
-            print("*****************************")  
+                print("*****************************")  
     except KeyError:
         print('No delete marker found.')
 except KeyError:
