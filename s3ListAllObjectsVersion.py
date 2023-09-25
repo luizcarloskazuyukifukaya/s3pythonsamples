@@ -49,6 +49,14 @@ def list_all_objects_version(bucket_name, prefix_name):
         raise Exception("Unexpected error in list_all_objects_version function of s3 helper: " + e.__str__())
     return result
 
+def process_obj_dict(d):
+    print("Key name: " + d['Key'])
+    print("Version Id: " + d['VersionId'])
+    print("Last Modified: " + str(d['LastModified']))
+    print("Latest version: " + str(d['IsLatest']))
+    print("*****************************")  
+    
+
 #-----------------------------------------------------------
 # Now call the defined function with the specified bucket and prefix
 #-----------------------------------------------------------
@@ -65,17 +73,9 @@ try:
         #print(type(v))
         if only_latest_flag:
             if v['IsLatest']:
-                print("Key name: " + v['Key'])
-                print("Version Id: " + v['VersionId'])
-                print("Last Modified: " + str(v['LastModified']))
-                print("Latest version: " + str(v['IsLatest']))
-                print('--------')
+                process_obj_dict(v)
         else:
-            print("Key name: " + v['Key'])
-            print("Version Id: " + v['VersionId'])
-            print("Last Modified: " + str(v['LastModified']))
-            print("Latest version: " + str(v['IsLatest']))
-            print('--------')
+            process_obj_dict(v)
     try:
         deletes = objs_dict['DeleteMarkers']
         #print(deletes)
@@ -86,17 +86,9 @@ try:
             #print(type(d))
             if only_latest_flag:
                 if d['IsLatest']:
-                    print("Key name: " + d['Key'])
-                    print("Version Id: " + d['VersionId'])
-                    print("Last Modified: " + str(d['LastModified']))
-                    print("Latest version: " + str(d['IsLatest']))
-                    print("*****************************")  
+                    process_obj_dict(d)
             else:
-                print("Key name: " + d['Key'])
-                print("Version Id: " + d['VersionId'])
-                print("Last Modified: " + str(d['LastModified']))
-                print("Latest version: " + str(d['IsLatest']))
-                print("*****************************")  
+                process_obj_dict(d)
     except KeyError:
         print('No delete marker found.')
 except KeyError:
