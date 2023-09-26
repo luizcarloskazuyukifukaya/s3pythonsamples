@@ -62,8 +62,8 @@ def process_obj_dict(d):
 #-----------------------------------------------------------
 objs_dict = list_all_objects_version(target_bucket, target_prefix)
 
-only_latest_flag = False
-#only_latest_flag = True
+#only_latest_flag = False
+only_latest_flag = True
 try:
     versions = objs_dict['Versions']
     #print(versions)
