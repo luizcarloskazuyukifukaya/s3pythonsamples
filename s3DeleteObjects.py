@@ -32,6 +32,7 @@ r = s3.delete_objects(
     Delete={
         'Objects': target_files,
         },
+    BypassGovernanceRetention=True,
 )
 
 print(type(r))
