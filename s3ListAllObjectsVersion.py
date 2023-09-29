@@ -1,5 +1,4 @@
 import boto3
-import boto3
 from botocore.exceptions import ClientError
 
 # Use the following code to connect using Wasabi profile from .aws/credentials file
