@@ -9,6 +9,7 @@ https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html
 ## config and credentials for Wasabi access
 The following is a sample of the confi file for the use with the sample code provided here:
 ### ~/.aws/config
+```
 [default]
 region = ap-northeast-1
 [profile wasabi]
@@ -121,8 +122,10 @@ s3api =
     endpoint_url = https://s3.ap-southeast-2.wasabisys.com
 [plugins]
 endpoint = awscli_plugin_endpoint
+```
 
 ### ~/.aws/credentials
+```
 [default]
 aws_access_key_id = YOUR_ACCESS_KEY_ID
 aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
@@ -161,3 +164,4 @@ aws_access_key_id = YOUR_ACCESS_KEY_ID
 aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
 [Osaka]
 aws_access_key_id = YOUR_ACCESS_KEY_ID
+```
