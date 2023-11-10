@@ -6,10 +6,9 @@ Samples of Python code with AWS SDK boto3 targetting Wasabi Hot Cloud Storage.
 Please refer to the following AWS document explaining details of the configuration files:
 https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html
 
+## config and credentials for Wasabi access
 The following is a sample of the confi file for the use with the sample code provided here:
---------------------------------------------------------
-~/.aws/config
---------------------------------------------------------
+### ~/.aws/config
 [default]
 region = ap-northeast-1
 [profile wasabi]
@@ -122,14 +121,8 @@ s3api =
     endpoint_url = https://s3.ap-southeast-2.wasabisys.com
 [plugins]
 endpoint = awscli_plugin_endpoint
---------------------------------------------------------
-~/.aws/config EOF
---------------------------------------------------------
 
-The following is a sample of the credentials file for the use with the sample code provided here:
---------------------------------------------------------
-~/.aws/credentials
---------------------------------------------------------
+### ~/.aws/credentials
 [default]
 aws_access_key_id = YOUR_ACCESS_KEY_ID
 aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
@@ -168,6 +161,3 @@ aws_access_key_id = YOUR_ACCESS_KEY_ID
 aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
 [Osaka]
 aws_access_key_id = YOUR_ACCESS_KEY_ID
---------------------------------------------------------
-~/.aws/credentials EOF
---------------------------------------------------------
