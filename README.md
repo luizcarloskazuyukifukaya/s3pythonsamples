@@ -1,7 +1,7 @@
 # s3pythonsamples
 Samples of Python code with AWS SDK boto3 targetting Wasabi Hot Cloud Storage.
 
-(NOTE) The sample source code includes Wasabi specific endpoints URL and also is written with assumption that the 'wasabi' profile is created in the AWS configuration file.
+(NOTE) The sample source codes include Wasabi specific endpoints URL and also are written with assumption that the 'wasabi' profile is created in the AWS CLI configuration file.
 
 Please refer to the following AWS document explaining details of the configuration files:
 https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html
