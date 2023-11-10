@@ -15,8 +15,8 @@ def show_wasabi_system_details(region):
 
     print(region)
     print(endpoint_url)
-    print(aws_access_key_id)
-    print(aws_secret_access_key)
+    #print(aws_access_key_id)
+    #print(aws_secret_access_key)
 
     #s3 = boto3.client('s3')
     s3 = boto3.client('s3',
