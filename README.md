@@ -10,7 +10,7 @@ https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html
 ### Runtime Setup
 First of all, you need to install Python in your environment. So, please follow the [instruction](https://www.python.org/downloads/) given for your specific environment.
 
-Next, you should install AWS SDK boto3 using the following command.
+Next, you should install AWS SDK boto3 using the following command:
 ```
 pip install boto3
 ```
@@ -45,8 +45,8 @@ Then, you will need to clone this GitHub repository to your local environment, s
  Select any folder/directory where you want to clone the samples with the following command:
  
 ```
-$ git clone https://github.com/luizcarloskazuyukifukaya/s3pythonsamples
-$ cd s3pythonsamplesboto3
+git clone https://github.com/luizcarloskazuyukifukaya/s3pythonsamples
+cd s3pythonsamplesboto3
 ```
 ### Python Code Execution
 Now, you are ready to start executing the samples with the following command:
