@@ -40,6 +40,21 @@ aws_access_key_id = YOUR_ACCESS_KEY_ID
 aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
 ```
 
+### Clone GitHub Repository
+Then, you will need to clone this GitHub repository to your local environment, so you can execute the codes.
+ Select any folder/directory where you want to clone the samples with the following command:
+ 
+```
+$ git clone https://github.com/luizcarloskazuyukifukaya/s3pythonsamples
+$ cd s3pythonsamplesboto3
+```
+### Python Code Execution
+Now, you are ready to start executing the samples with the following command:
+```Python
+python s3ShowWasabiVersion.py
+```
+**(Note)** Depending on your environment, "python" command could be different, for example, for Linux it could be "python3".
+
 ## References
 ### Wasabi API Access Key Set
 For details on how to create the Access Key and the Secret Key, Please check the article provided at Wasabi Knowledge Base.
