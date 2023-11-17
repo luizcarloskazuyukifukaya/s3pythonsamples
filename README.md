@@ -40,13 +40,13 @@ aws_access_key_id = YOUR_ACCESS_KEY_ID
 aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
 ```
 
-:::note info
+::: note info
 Wasabi API Access Key Set
 For details on how to create the Access Key and the Secret Key, Please check the article provided at Wasabi Knowledge Base.
 [Creating a Wasabi API Access Key Set](https://knowledgebase.wasabi.com/hc/en-us/articles/360019677192-Creating-a-Wasabi-API-Access-Key-Set)
 :::
 
-:::note info
+::: note info
 Reference
 Please refer to AWS SDK document for details.
 [AWS SDK for Python (Boto3)](https://aws.amazon.com/sdk-for-python/ "AWS SDK")
