@@ -62,6 +62,10 @@ python s3ShowWasabiVersion.py
 For details on how to create the Access Key and the Secret Key, Please check the article provided at Wasabi Knowledge Base.
 - [Creating a Wasabi API Access Key Set](https://knowledgebase.wasabi.com/hc/en-us/articles/360019677192-Creating-a-Wasabi-API-Access-Key-Set)
 
+### Wasabi S3 Endpoints
+For details the Wasabi S3 Endpoints (service URLs) can be found at Wasabi site.
+- [What are the service URLs for Wasabi's different storage regions?](https://docs.wasabi.com/docs/what-are-the-service-urls-for-wasabis-different-storage-regions)
+
 ### AWS SDK document
 Please refer to AWS SDK document for details of Python Boto3.
 - [AWS SDK for Python (Boto3)](https://aws.amazon.com/sdk-for-python/ "AWS SDK")
