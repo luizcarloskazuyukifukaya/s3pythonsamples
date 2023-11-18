@@ -28,11 +28,7 @@ s3 =
 s3api =
     endpoint_url = https://s3.ap-northeast-1.wasabisys.com
 ```
-**(Note 1)** The home directory path (.ex. '~' for Linux) is different depending on the type of Operating System used.
-**(Note 2)** The [configuration file (~/.aws/config)](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) can be created with the AWS CLI installed also, [from here](https://docs.aws.amazon.com/en_us/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions), and by executing the aws configure command:
-```aws configuration
-aws configure set region ap-northeast-1 --profile wasabi
-```
+**(Note)** The home directory path (.ex. '~' for Linux) is different depending on the type of Operating System used.
 
 ### Credentials
 Then, specify the credentials provided per account to access Wasabi S3 (in ~/.aws/credentials):
@@ -58,12 +54,7 @@ Now, you are ready to start executing the samples with the following command:
 ```Python
 python s3ShowWasabiVersion.py
 ```
-**(Note 1)** Depending on your environment, "python" command could be different, for example, for Linux it could be "python3".
-
-**(Note 2)** If you are getting the following error, it is because the configuration file setting is not correct.
-```
-botocore.exceptions.ProfileNotFound: The config profile (wasabi) could not be found
-```
+**(Note)** Depending on your environment, "python" command could be different, for example, for Linux it could be "python3".
 
 ## References
 ### Wasabi API Access Key Set
@@ -73,3 +64,18 @@ For details on how to create the Access Key and the Secret Key, Please check the
 ### AWS SDK document
 Please refer to AWS SDK document for details of Python Boto3.
 - [AWS SDK for Python (Boto3)](https://aws.amazon.com/sdk-for-python/ "AWS SDK")
+
+### AWS CLI Configuration and Credential File  
+The [configuration file (~/.aws/config)](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) can be created with the AWS CLI installed also, [from here](https://docs.aws.amazon.com/en_us/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions), and by executing the aws configure command:
+```aws configuration
+aws configure set region ap-northeast-1 --profile wasabi
+```
+Please refer [this AWS document](https://docs.aws.amazon.com/en_us/cli/latest/userguide/cli-configure-files.html) for details.
+
+
+## Troubleshooting
+**(Issue 1)** If you are getting the following error, it is because the configuration file setting is not correct.
+```
+botocore.exceptions.ProfileNotFound: The config profile (wasabi) could not be found
+```
+Please check the profile setting of the configuration and credential files.
