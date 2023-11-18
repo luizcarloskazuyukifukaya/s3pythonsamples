@@ -12,8 +12,8 @@ endpoint_url = 'https://s3.' + region + '.wasabisys.com'
 
 print(region)
 print(endpoint_url)
-print(aws_access_key_id)
-print(aws_secret_access_key)
+#print(aws_access_key_id)
+#print(aws_secret_access_key)
 
 s3 = boto3.client('s3',
                   endpoint_url=endpoint_url,

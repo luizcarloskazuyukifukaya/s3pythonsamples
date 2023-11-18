@@ -38,6 +38,7 @@ target_tagging = { 'TagSet': [
 #                                { 'Key': 'Key26', 'Value': 'Value26'},
                             ]
                 }
+# Note: Wasabi supports up to 25 taggings where AWS is limited to 15
 
 print(target_bucket)
 print(target_file)
@@ -52,8 +53,8 @@ endpoint_url = 'https://s3.' + region + '.wasabisys.com'
 
 print(region)
 print(endpoint_url)
-print(aws_access_key_id)
-print(aws_secret_access_key)
+#print(aws_access_key_id)
+#print(aws_secret_access_key)
 
 s3 = boto3.client('s3',
                   endpoint_url=endpoint_url,
