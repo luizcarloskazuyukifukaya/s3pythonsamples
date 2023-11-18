@@ -98,29 +98,3 @@ Please refer [this AWS document](https://docs.aws.amazon.com/en_us/cli/latest/us
 botocore.exceptions.ProfileNotFound: The config profile (wasabi) could not be found
 ```
 Please check the profile setting of the configuration and credential files.
-
-```
-kfukaya@LenovoX13:~/projects/s3pythonsamples$ date
-Sat Nov 18 18:32:39 JST 2023
-kfukaya@LenovoX13:~/projects/s3pythonsamples$ timedatectl status
-               Local time: Sat 2023-11-18 18:33:52 JST
-           Universal time: Sat 2023-11-18 09:33:52 UTC
-                 RTC time: Sat 2023-11-18 09:32:37
-                Time zone: Asia/Tokyo (JST, +0900)
-System clock synchronized: no
-              NTP service: inactive
-          RTC in local TZ: no
-kfukaya@LenovoX13:~/projects/s3pythonsamples$ timedatectl set-ntp yes
-Failed to set ntp: Interactive authentication required.
-kfukaya@LenovoX13:~/projects/s3pythonsamples$ sudo timedatectl set-ntp yes
-[sudo] password for kfukaya:
-kfukaya@LenovoX13:~/projects/s3pythonsamples$ timedatectl status
-               Local time: Sat 2023-11-18 18:34:47 JST
-           Universal time: Sat 2023-11-18 09:34:47 UTC
-                 RTC time: Sat 2023-11-18 09:33:28
-                Time zone: Asia/Tokyo (JST, +0900)
-System clock synchronized: no
-              NTP service: inactive
-          RTC in local TZ: no
-kfukaya@LenovoX13:~/projects/s3pythonsamples$
-```
