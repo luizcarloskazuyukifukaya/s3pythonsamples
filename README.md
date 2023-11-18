@@ -67,7 +67,7 @@ Please refer to AWS SDK document for details of Python Boto3.
 - [AWS SDK for Python (Boto3)](https://aws.amazon.com/sdk-for-python/ "AWS SDK")
 
 ### AWS CLI Configuration and Credential File  
-The configuration file (~/.aws/config) and the credential file (~/.aws/credentials) can be created with the AWS CLI installed also, [from here](https://docs.aws.amazon.com/en_us/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions), and by executing the aws configure command:
+The configuration file and the credential file can be created with the AWS CLI installed also, [from here](https://docs.aws.amazon.com/en_us/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions), and by executing the aws configure command:
 ```aws configuration
 aws configure set region ap-northeast-1 --profile wasabi
 ```
