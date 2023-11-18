@@ -17,7 +17,7 @@ pip install boto3
 **(Note)** For installation details, you can refer [AWS SDK for Python (Boto3)](https://aws.amazon.com/sdk-for-python/).
 
 ### Profile and region
-Then, set up a default region and the profile for Wasabi by manually creating the configuration file (in ~/.aws/config):
+Then, set up a default region and the profile for Wasabi by manually creating the configuration file in your home directory (in ~/.aws/config):
 ```~/.aws/config
 [default]
 region = ap-northeast-1
@@ -31,7 +31,7 @@ s3api =
 **(Note)** The home directory path (.ex. '~' for Linux) is different depending on the type of Operating System used.
 
 ### Credentials
-Then, specify the credentials provided per account to access Wasabi S3 (in ~/.aws/credentials):
+Then, specify the credentials provided per account to access Wasabi S3 by manually creating the credential file in your home directory (in ~/.aws/credentials):
 ```~/.aws/credentials
 [default]
 aws_access_key_id = YOUR_ACCESS_KEY_ID
@@ -40,6 +40,7 @@ aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
 aws_access_key_id = YOUR_ACCESS_KEY_ID
 aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
 ```
+**(Note)** The home directory path (.ex. '~' for Linux) is different depending on the type of Operating System used.
 
 ### Clone GitHub Repository
 Then, you will need to clone this GitHub repository to your local environment, so you can execute the codes.
@@ -66,12 +67,11 @@ Please refer to AWS SDK document for details of Python Boto3.
 - [AWS SDK for Python (Boto3)](https://aws.amazon.com/sdk-for-python/ "AWS SDK")
 
 ### AWS CLI Configuration and Credential File  
-The [configuration file (~/.aws/config)](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) can be created with the AWS CLI installed also, [from here](https://docs.aws.amazon.com/en_us/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions), and by executing the aws configure command:
+The configuration file (~/.aws/config) and the credential file (~/.aws/credentials) can be created with the AWS CLI installed also, [from here](https://docs.aws.amazon.com/en_us/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions), and by executing the aws configure command:
 ```aws configuration
 aws configure set region ap-northeast-1 --profile wasabi
 ```
 Please refer [this AWS document](https://docs.aws.amazon.com/en_us/cli/latest/userguide/cli-configure-files.html) for details.
-
 
 ## Troubleshooting
 **(Issue 1)** If you are getting the following error, it is because the configuration file setting is not correct.
