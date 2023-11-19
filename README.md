@@ -48,7 +48,7 @@ Then, you will need to clone this GitHub repository to your local environment, s
  
 ```
 git clone https://github.com/luizcarloskazuyukifukaya/s3pythonsamples
-cd s3pythonsamplesboto3
+cd s3pythonsamples
 ```
 ### Python Code Execution
 Now, you are ready to start executing the samples with the following command:
