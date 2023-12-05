@@ -4,14 +4,14 @@
 import boto3
 
 # Define the target bucket and prefix
-#target_bucket = "kfukaya-tagging"
-target_bucket = "kfukaya-sydney-bucket"
+target_bucket = "kfukaya-tagging"
+#target_bucket = "kfukaya-sydney-bucket"
 target_file = "test.txt"
 
 # Specify the tagging (dict)
 target_tagging = { 'TagSet': [
-                                { 'Key': 'Key1', 'Value': 'Value1'},
-                                { 'Key': 'Key2', 'Value': 'Value2'},
+                                { 'Key': 'Key01', 'Value': 'Value01'},
+                                { 'Key': 'Key02', 'Value': 'Value02'},
                                 { 'Key': 'Key3', 'Value': 'Value3'},
                                 { 'Key': 'Key4', 'Value': 'Value4'},
                                 { 'Key': 'Key5', 'Value': 'Value5'},
@@ -43,12 +43,13 @@ target_tagging = { 'TagSet': [
 print(target_bucket)
 print(target_file)
 
-session = boto3.Session(profile_name="wasabi")
+#session = boto3.Session(profile_name="wasabi")
+session = boto3.Session(profile_name="kfukaya")
 credentials = session.get_credentials()
 aws_access_key_id = credentials.access_key
 aws_secret_access_key = credentials.secret_key
-##region = 'ap-northeast-1'
-region = 'ap-southeast-2'
+region = 'ap-northeast-1'
+#region = 'ap-southeast-2'
 endpoint_url = 'https://s3.' + region + '.wasabisys.com'
 
 print(region)
