@@ -8,7 +8,9 @@ from s3PresignedURLs import create_presigned_url
 # Target bucket and object (key) specified here
 # Define the target bucket and prefix
 target_bucket = "kfukaya-tagging"
+target_bucket = "kfukaya-wasabi-doc"
 target_file = "data/test.txt" 
+target_file = "material.pptx" 
 
 print(target_bucket)
 print(target_file)

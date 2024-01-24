@@ -5,8 +5,13 @@ import logging
 import boto3
 from botocore.exceptions import ClientError
 
+#EXPIRE_LENGTH = 36000 # seconds (10 hours)
+#EXPIRE_LENGTH = 86400 # seconds (1  day)
+#EXPIRE_LENGTH = 604800 # seconds (7 days) (max SigV4)
+EXPIRE_LENGTH = 31536000 # seconds (365 days) (SigV2)
+
 # Simple presigned URLs to download an object
-def create_presigned_url(bucket_name, object_name, expiration=3600):
+def create_presigned_url(bucket_name, object_name, expiration=EXPIRE_LENGTH):
     """Generate a presigned URL to share an S3 object
 
     :param bucket_name: string
@@ -52,7 +57,7 @@ def create_presigned_url(bucket_name, object_name, expiration=3600):
 
 # Using presigned URLs to perform other S3 operations
 def create_presigned_url_expanded(client_method_name, method_parameters=None,
-                                  expiration=3600, http_method=None):
+                                  expiration=EXPIRE_LENGTH, http_method=None):
     """Generate a presigned URL to invoke an S3.Client method
 
     Not all the client methods provided in the AWS Python SDK are supported.
@@ -100,7 +105,7 @@ def create_presigned_url_expanded(client_method_name, method_parameters=None,
 
 # Generating a presigned URL to upload a file
 def create_presigned_post(bucket_name, object_name,
-                          fields=None, conditions=None, expiration=3600):
+                          fields=None, conditions=None, expiration=EXPIRE_LENGTH):
     """Generate a presigned URL S3 POST request to upload a file
 
     :param bucket_name: string

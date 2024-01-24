@@ -8,7 +8,7 @@ from s3PresignedURLs import create_presigned_url, create_presigned_post
 
 # Target bucket and object (key) specified here
 # Define the target bucket and prefix
-target_bucket = "kfukaya-tagging"
+target_bucket = "kfukaya-wasabi-doc"
 target_file = "data/test.txt" 
 
 print(target_bucket)
@@ -19,6 +19,9 @@ object_name = target_file
 response = create_presigned_post(target_bucket, object_name)
 if response is None:
     exit(1)
+
+print(f"Presigned URL: {response['url']}")
+print(f"Presigned fields: {response['fields']}")
 
 # Demonstrate how another Python program can use the presigned URL to upload a file
 with open(object_name, 'rb') as f:
