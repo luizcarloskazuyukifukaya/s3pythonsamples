@@ -4,7 +4,9 @@
 import boto3
 
 # Define the parameters
-assignStatus = 'Assigned'
+assignStatus = 'Any'
+#assignStatus = 'Assigned'
+#assignStatus = 'Unassigned'
 
 session = boto3.Session(profile_name="wasabi")
 credentials = session.get_credentials()
@@ -26,6 +28,7 @@ s3 = boto3.client('iam',
                   aws_secret_access_key=aws_secret_access_key)
 
 r = s3.list_virtual_mfa_devices(
+  AssignmentStatus=assignStatus
 )
 
 print(r)
@@ -36,11 +39,11 @@ print('VirtualMFADevices:')
 print(r['VirtualMFADevices'])
 print('------------------')
 
-print('Listing all Virtual MFA Devices ....')
+print('Listing all Virtual MFA Devices linked to a user ....')
 for mfaDevice in r['VirtualMFADevices']:
-    print('Virutal MFA Device S/N: ' + mfaDevice["SerialNumber"]) 
-    if r.get('User'):
-        print("Virutal MFA Device's User: " + mfaDevice["User"]) 
-        print("Virutal MFA Device's User Name: " + mfaDevice["User"]["UserName"]) 
-        print("Virutal MFA Device's User ID: " + mfaDevice["User"]["UserId"]) 
-        print("Virutal MFA Device's User ARN: " + mfaDevice["User"]["Arn"]) 
+    if mfaDevice.get('User'):
+      print(f'Virutal MFA Device S/N: {mfaDevice["SerialNumber"]}') 
+#      print(f"Virutal MFA Device's User: {mfaDevice['User']}") 
+      print(f"Virutal MFA Device's User Name: {mfaDevice['User']['UserName']}") 
+      print(f"Virutal MFA Device's User ID: {mfaDevice['User']['UserId']}") 
+      print(f"Virutal MFA Device's User ARN: {mfaDevice['User']['Arn']}") 
