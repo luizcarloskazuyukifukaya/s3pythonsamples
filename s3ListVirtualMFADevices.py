@@ -19,6 +19,7 @@ print(endpoint_url)
 #print(aws_access_key_id)
 #print(aws_secret_access_key)
 
+# IAM service used
 s3 = boto3.client('iam',
                   endpoint_url=endpoint_url,
                   aws_access_key_id=aws_access_key_id,
