@@ -7,6 +7,7 @@ session = boto3.Session(profile_name="wasabi")
 credentials = session.get_credentials()
 aws_access_key_id = credentials.access_key
 aws_secret_access_key = credentials.secret_key
+
 region = 'ap-northeast-1'
 endpoint_url = 'https://iam.' + region + '.wasabisys.com'
 
