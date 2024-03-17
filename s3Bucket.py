@@ -97,7 +97,7 @@ def list_buckets():
     for bucket in response['Buckets']:
         print(f'  {bucket["Name"]}')
     
-    return response
+    return response['Buckets']
 
 # Delete existing bucket
 def delete_bucket(bucket_name):
