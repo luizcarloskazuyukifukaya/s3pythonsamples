@@ -48,6 +48,29 @@ temp_creds = sts_client.assume_role(
     DurationSeconds=durationSeconds # Duration in seconds
 )
 
+#print(temp_creds)
+#print(type(temp_creds))
+
+r=temp_creds
+print('------------------')
+print('Credentials:')
+print(r['Credentials'])
+print('------------------')
+print('ResponseMetadata:')
+print(r['ResponseMetadata'])
+print('------------------')
+
+cred=r['Credentials']
+print('AccessKeyId:')
+print(cred['AccessKeyId'])
+print('SecretAccessKey:')
+print(cred['SecretAccessKey'])
+print('Expiration:')
+print(cred['Expiration'])
+print('SessionToken:')
+print(cred['SessionToken'])
+print('------------------')
+
 # Create tempporary session with the temporary credentials generated with STS
 s3 = boto3.client(
     's3',
@@ -60,9 +83,9 @@ s3 = boto3.client(
 print("Temporary session created....")
 
 # List buckets
-r = s3.list_buckets()
+# r = s3.list_buckets()
 
-print(type(r))
-print(r)
+# print(type(r))
+# print(r)
 
 
