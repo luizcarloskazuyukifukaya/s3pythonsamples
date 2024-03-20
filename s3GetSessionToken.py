@@ -15,7 +15,10 @@ aws_access_key_id = credentials.access_key
 aws_secret_access_key = credentials.secret_key
 region = 'ap-northeast-1'
 #endpoint_url = 'https://s3.' + region + '.wasabisys.com'
-endpoint_url = 'https://sts.' + region + '.wasabisys.com'
+
+# STS is a global service and should not be directly using the regional endopoint
+#endpoint_url = 'https://sts.' + region + '.wasabisys.com'
+endpoint_url = 'https://sts.wasabisys.com'
 
 print(region)
 print(endpoint_url)
