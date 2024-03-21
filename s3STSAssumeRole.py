@@ -30,10 +30,16 @@ region = 'ap-northeast-1'
 #endpoint_url = 'https://s3.' + region + '.wasabisys.com'
 
 # STS is a global service and should not be directly using the regional endopoint
-endpoint_url = 'https://sts.' + region + '.wasabisys.com'
-#endpoint_url = 'https://sts.' + region + '.amazonaws.com'
-#endpoint_url = 'https://sts.wasabisys.com'
-#endpoint_url = 'https://sts.amazonaws.com'
+sts_endpoint_url = 'https://sts.' + region + '.wasabisys.com'
+#sts_endpoint_url = 'https://sts.' + region + '.amazonaws.com'
+#sts_endpoint_url = 'https://sts.wasabisys.com'
+#sts_endpoint_url = 'https://sts.amazonaws.com'
+
+# S3 endopoint
+endpoint_url = 'https://s3.' + region + '.wasabisys.com'
+#endpoint_url = 'https://s3.' + region + '.amazonaws.com'
+#endpoint_url = 'https://s3.wasabisys.com'
+#endpoint_url = 'https://s3.amazonaws.com'
 
 print(region)
 print(endpoint_url)
@@ -41,7 +47,7 @@ print(endpoint_url)
 #print(aws_secret_access_key)
 
 sts_client = boto3.client('sts',
-                  endpoint_url=endpoint_url,
+                  endpoint_url=sts_endpoint_url,
                   aws_access_key_id=aws_access_key_id,
                   aws_secret_access_key=aws_secret_access_key)
 
@@ -82,7 +88,8 @@ print('------------------')
 # Create tempporary session with the temporary credentials generated with STS
 s3 = boto3.client(
     's3',
-    region_name=region,
+#    region_name=region,
+    endpoint_url=endpoint_url,
     aws_access_key_id=temp_creds.get('Credentials').get('AccessKeyId'),
     aws_secret_access_key=temp_creds.get('Credentials').get('SecretAccessKey'),
     aws_session_token=temp_creds.get('Credentials').get('SessionToken')
@@ -138,6 +145,12 @@ print('------------------')
 print('Buckets:')
 print(r['Buckets'])
 print('------------------')
+
+# Output the bucket names
+print('Existing buckets:')
+for bucket in r['Buckets']:
+    print(f'  {bucket["Name"]}')
+
 
 print("Deleting bucket....")
 print(f'Bucket Name: {bucket_name}')
