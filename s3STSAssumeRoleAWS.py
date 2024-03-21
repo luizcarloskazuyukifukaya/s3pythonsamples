@@ -5,24 +5,24 @@
 # https://zenn.dev/sugikeitter/articles/how-to-use-boto3-various-settings
 
 # *******************************************************
-# IMPORTANT THIS IS A EXAMPLE FOR WASABI Connection
+# IMPORTANT THIS IS A EXAMPLE FOR AWS Connection
 # *******************************************************
 import boto3
 
 # Define the parameters
 durationSeconds=3600
-sessionName='kfukayaWASABI'
+sessionName='kfukayaAWS'
 
 #'arn:aws:iam::100000222373:role/S3FullAccessRole'
-assumeRoleARN='arn:aws:iam::100000222373:role/S3FullAccessRole'
+#assumeRoleARN='arn:aws:iam::100000222373:role/S3FullAccessRole'
 # arn:aws:iam::295267756805:role/AWSAssumeRoleS3FullAccess
-#assumeRoleARN='arn:aws:iam::295267756805:role/AWSAssumeRoleS3FullAccess'
+assumeRoleARN='arn:aws:iam::295267756805:role/AWSAssumeRoleS3FullAccess'
 
 print(durationSeconds)
 print(assumeRoleARN)
 
-session = boto3.Session(profile_name="normal")
-#session = boto3.Session(profile_name="normalAWS")
+#session = boto3.Session(profile_name="normal")
+session = boto3.Session(profile_name="normalAWS")
 credentials = session.get_credentials()
 aws_access_key_id = credentials.access_key
 aws_secret_access_key = credentials.secret_key
@@ -30,8 +30,8 @@ region = 'ap-northeast-1'
 #endpoint_url = 'https://s3.' + region + '.wasabisys.com'
 
 # STS is a global service and should not be directly using the regional endopoint
-endpoint_url = 'https://sts.' + region + '.wasabisys.com'
-#endpoint_url = 'https://sts.' + region + '.amazonaws.com'
+#endpoint_url = 'https://sts.' + region + '.wasabisys.com'
+endpoint_url = 'https://sts.' + region + '.amazonaws.com'
 #endpoint_url = 'https://sts.wasabisys.com'
 #endpoint_url = 'https://sts.amazonaws.com'
 
