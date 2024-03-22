@@ -64,8 +64,15 @@ session = boto3.Session(profile_name="normal")
 credentials = session.get_credentials()
 aws_access_key_id = credentials.access_key
 aws_secret_access_key = credentials.secret_key
+
+# Get the region name from the session
+# region = session.region_name
 region = 'ap-northeast-1'
 #endpoint_url = 'https://s3.' + region + '.wasabisys.com'
+
+# Get the S3 endpoint URL from the session
+# s3_endpoint_url = session.get_config_variable('s3')['endpoint_url']
+# print(f"The S3 endpoint URL specified in the AWS CLI profile is: {s3_endpoint_url}")
 
 # STS is a global service and should not be directly using the regional endopoint
 sts_endpoint_url = 'https://sts.' + region + '.wasabisys.com'
