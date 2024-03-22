@@ -3,6 +3,43 @@
 # EndPoint URL is with sts.wasabisys.com (sts.<<region>>.wasabisys.com)
 # Japanese only
 # https://zenn.dev/sugikeitter/articles/how-to-use-boto3-various-settings
+#
+# Example of policy to assign to a user who can assume role
+# Policy (JSON) allowing any instance to perform sts:AssumeRole
+# {
+#   "Version": "2012-10-17",
+#   "Statement": [
+#     {
+#       "Effect": "Allow",
+#       "Principal": {
+#         "AWS": "*"
+#       },
+#       "Action": "sts:AssumeRole"
+#     }
+#   ]
+# }
+
+# Example of role with policy named "WasabiFullAccess"
+# Role ARN 'arn:aws:iam::100000222373:role/S3FullAccessRole'
+# JSON of WasabiFullAccess policy
+# {
+#   "Version": "2012-10-17",
+#   "Statement": [
+#     {
+#       "Effect": "Allow",
+#       "Action": "s3:*",
+#       "Resource": "*"
+#     },
+#     {
+#       "Effect": "Allow",
+#       "Action": [
+#         "iam:*",
+#         "sts:*"
+#       ],
+#       "Resource": "arn:aws:iam::${aws:accountid}:user/${aws:username}"
+#     }
+#   ]
+# }
 
 # *******************************************************
 # IMPORTANT THIS IS A EXAMPLE FOR WASABI Connection
@@ -23,6 +60,7 @@ print(assumeRoleARN)
 
 session = boto3.Session(profile_name="normal")
 #session = boto3.Session(profile_name="normalAWS")
+# The IAM user associated with the profile specified should have the sts:AssumeRole policy at least
 credentials = session.get_credentials()
 aws_access_key_id = credentials.access_key
 aws_secret_access_key = credentials.secret_key
@@ -51,6 +89,8 @@ sts_client = boto3.client('sts',
                   aws_access_key_id=aws_access_key_id,
                   aws_secret_access_key=aws_secret_access_key)
 
+
+# The session policy specified here
 sessionPolicy = '{"Version": "2012-10-17","Statement": [{"Effect": "Allow","Action": "s3:*","Resource": "*"}]}'
 
 temp_creds = sts_client.assume_role(
@@ -83,6 +123,7 @@ print('Expiration:')
 print(cred['Expiration'])
 print('SessionToken:')
 print(cred['SessionToken'])
+print(f"Size: {len(cred['SessionToken'])}")
 print('------------------')
 
 # Create tempporary session with the temporary credentials generated with STS
@@ -141,10 +182,10 @@ r = s3.list_buckets()
 # print('------------------')
 # print('HTTPHeaders:')
 # print(r['ResponseMetadata']['HTTPHeaders'])
-print('------------------')
-print('Buckets:')
-print(r['Buckets'])
-print('------------------')
+# print('------------------')
+# print('Buckets:')
+# print(r['Buckets'])
+# print('------------------')
 
 # Output the bucket names
 print('Existing buckets:')

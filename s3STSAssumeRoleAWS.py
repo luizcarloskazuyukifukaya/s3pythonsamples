@@ -83,6 +83,7 @@ print('Expiration:')
 print(cred['Expiration'])
 print('SessionToken:')
 print(cred['SessionToken'])
+print(f"Size: {len(cred['SessionToken'])}")
 print('------------------')
 
 # Create tempporary session with the temporary credentials generated with STS
