@@ -98,7 +98,3 @@ Please refer [this AWS document](https://docs.aws.amazon.com/en_us/cli/latest/us
 botocore.exceptions.ProfileNotFound: The config profile (wasabi) could not be found
 ```
 Please check the profile setting of the configuration and credential files.
-
-```
-code
-```
