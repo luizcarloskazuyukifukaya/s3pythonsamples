@@ -94,6 +94,11 @@ def main():
     # Output the bucket names
     print('Listing all objects within a existing bucket ....')
 
+    # Define Date Point for the detection of objects violating the delete retention policy
+    # Date point: April 30th, 2024 at 9:30 AM
+    # from zoneinfo import ZoneInfo
+    # tzinfo=ZoneInfo('Asia/Tokyo')
+    # current_time = datetime.datetime(year=2024, month=4, day=30, hour=9, minute=30, second=0, tzinfo=tzinfo)
     # Get the current time
     # Against this time the delta time will be calculated to determine the delete retention violation
     current_time = datetime.datetime.now(JST)
@@ -146,6 +151,7 @@ def main():
         # Delete retention: 30 days (RCS, used this time)
         # Delete retention: 90 days (PayGO)
         retention_days = 30
+        # retention_days = 90
 
         #print(type(objects['Contents']))
         for obj in dict_objects:
