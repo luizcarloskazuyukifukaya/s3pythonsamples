@@ -14,7 +14,7 @@ def convert_bytes(byte_size):
 
 # main function
 def main():
-    # Delete Retention object total size
+    # Bucket Consumed object total size
     total_objects_size = 0
 
     # Use the following code to connect using Wasabi profile from .aws/credentials file
@@ -93,7 +93,7 @@ def main():
             lastModified = obj['LastModified'].strftime('%A, %B %d, %Y %I:%M %p')
             # print(f"------ {lastModified}")
         
-            # sum up the object size that is violating the delete retention policy
+            # sum up the object size that is violating the Bucket Consumed policy
             total_objects_size = total_objects_size + int(obj['Size'])
 
         print(f"... Bucket's Total Consumed Size: {total_objects_size} ")
@@ -101,16 +101,16 @@ def main():
     kb,mb,gb,tb = convert_bytes(total_objects_size)
     if tb > 1.0:
         print(f"******** Account Total Consumed Size: {round(tb,4)} TB")
-        # print(f"******** Delete Retention Total Size: {tb} TB")
+        # print(f"******** Bucket Consumed Total Size: {tb} TB")
     elif gb > 1.0:
         print(f"******** Account Total Consumed Size: {round(gb,4)} GB")
-        # print(f"******** Delete Retention Total Size: {gb} GB")
+        # print(f"******** Bucket Consumed Total Size: {gb} GB")
     elif mb > 1.0:
         print(f"******** Account Total Consumed Size: {round(mb,4)} MB")
-        # print(f"******** Delete Retention Total Size: {mb} MB")
+        # print(f"******** Bucket Consumed Total Size: {mb} MB")
     elif kb > 1.0:
         print(f"******** Account Total Consumed Size: {round(kb,4)} KB")
-        # print(f"******** Delete Retention Total Size: {kb} KB")
+        # print(f"******** Bucket Consumed Total Size: {kb} KB")
 
     print(f"******** Account Total Consumed Size: {total_objects_size} bytes")
 
