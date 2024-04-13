@@ -4,22 +4,13 @@ import datetime
 JST = datetime.timezone(datetime.timedelta(hours=9), "JST")
 # https://qiita.com/nagataaaas/items/1582cebb51962f9a80e9
 
-def convert_bytes(byte_size):
-    kb_size = byte_size / 1024
-    mb_size = kb_size / 1024
-    gb_size = mb_size / 1024
-    tb_size = gb_size / 1024
-    
-    return kb_size, mb_size, gb_size, tb_size
-
-# main function
-def main():
-    # Bucket Consumed object total size
-    total_objects_size = 0
-
+def getS3Client(profileName: str) -> boto3.s3:
     # Use the following code to connect using Wasabi profile from .aws/credentials file
     # session = boto3.Session(profile_name="wasabi")
-    session = boto3.Session(profile_name="wasabi")
+    if profileName == None:
+        profileName = "default"
+        
+    session = boto3.Session(profile_name=profileName)
     credentials = session.get_credentials()
     aws_access_key_id = credentials.access_key
     aws_secret_access_key = credentials.secret_key
@@ -33,12 +24,59 @@ def main():
     #print(aws_access_key_id)
     #print(aws_secret_access_key)
 
-    s3 = boto3.client('s3',
+    s3Client = boto3.client('s3',
                     region_name = region,
                     endpoint_url=endpoint_url,
                     aws_access_key_id=aws_access_key_id,
                     aws_secret_access_key=aws_secret_access_key)
 
+    return s3Client
+
+def getS3ClientFromBucket(s3Client: boto3.client, bucket_name: str):
+
+    # Optin s3 client (set per each bucket)
+    optin_s3 = None
+
+    location = s3Client.get_bucket_location(Bucket=bucket_name)
+    
+    if location['LocationConstraint'] is not None:
+        bucket_region = location['LocationConstraint']
+        # create s3 client with the optin region
+        endpoint_url = 'https://s3.' + bucket_region + '.wasabisys.com'
+        # endpoint_url = 'https://s3.wasabisys.com'
+        optin_s3 = boto3.client('s3',
+                region_name = bucket_region,
+                endpoint_url=endpoint_url,
+                aws_access_key_id=aws_access_key_id,
+                aws_secret_access_key=aws_secret_access_key)
+    else:
+        bucket_region = DEFAULT_REGION
+        endpoint_url = 'https://s3.' + bucket_region + '.wasabisys.com'
+        # endpoint_url = 'https://s3.wasabisys.com'
+        optin_s3 = boto3.client('s3',
+                region_name = bucket_region,
+                endpoint_url=endpoint_url,
+                aws_access_key_id=aws_access_key_id,
+                aws_secret_access_key=aws_secret_access_key)
+        
+    print(f"Bucket location: {bucket_region}") 
+
+def convert_bytes(byte_size):
+    kb_size = byte_size / 1024
+    mb_size = kb_size / 1024
+    gb_size = mb_size / 1024
+    tb_size = gb_size / 1024
+    
+    return kb_size, mb_size, gb_size, tb_size
+
+# main function
+def main():
+    # Bucket Consumed object total size
+    total_objects_size = 0
+
+    # Get s3 client with the profile specified
+    s3 = getS3Client("wasabi")
+    
     # List buckets
     response = s3.list_buckets()
     # Output the bucket names
@@ -48,34 +86,9 @@ def main():
         bucket_name = bucket["Name"]
         print(f'Bucket name: {bucket_name}') 
 
-        # Optin s3 client (set per each bucket)
-        optin_s3 = None
-
-        location = s3.get_bucket_location(Bucket=bucket_name)
+        # Get s3 client from the bucket (with optin supported)
+        optin_s3 = getS3ClientFromBucket(s3, bucket_name)
         
-        if location['LocationConstraint'] is not None:
-            bucket_region = location['LocationConstraint']
-            # create s3 client with the optin region
-            endpoint_url = 'https://s3.' + bucket_region + '.wasabisys.com'
-            # endpoint_url = 'https://s3.wasabisys.com'
-            optin_s3 = boto3.client('s3',
-                    region_name = bucket_region,
-                    endpoint_url=endpoint_url,
-                    aws_access_key_id=aws_access_key_id,
-                    aws_secret_access_key=aws_secret_access_key)
-            
-        else:
-            bucket_region = DEFAULT_REGION
-            endpoint_url = 'https://s3.' + bucket_region + '.wasabisys.com'
-            # endpoint_url = 'https://s3.wasabisys.com'
-            optin_s3 = boto3.client('s3',
-                    region_name = bucket_region,
-                    endpoint_url=endpoint_url,
-                    aws_access_key_id=aws_access_key_id,
-                    aws_secret_access_key=aws_secret_access_key)
-            
-        print(f"Bucket location: {bucket_region}") 
-
         objects = optin_s3.list_objects_v2(Bucket=bucket["Name"])
         #print(objects['Name']) 
         #print(type(objects))
