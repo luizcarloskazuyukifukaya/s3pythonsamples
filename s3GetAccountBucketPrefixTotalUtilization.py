@@ -2,6 +2,12 @@
 # This should help calculate the total storage within a "folder" 
 # or based on wild card "target_prefix*"
 
+# PYTHON EXECUTION
+# When executing the source code with python command,
+# parameters can be specified:
+# parameter 1: bucket name
+# parameter 2: prefix
+
 import boto3
 import datetime
 
@@ -99,22 +105,33 @@ def show_size(total_objects_size):
         # print(f"******** Bucket Consumed Total Size: {kb} KB")
     print(f"******** Account Total Consumed Size: {total_objects_size} bytes")
 
+import sys
 
-# main function
-def main():
+# Function that takes parameters as input
+def process_parameters(arg1, arg2):
+    print("Parameter 1:", arg1)
+    print("Parameter 2:", arg2)
+
+# Get command-line arguments
+arg1 = sys.argv[1] if len(sys.argv) > 1 else "Default1"
+arg2 = sys.argv[2] if len(sys.argv) > 2 else "Default2"
+
+# Call the function with the parameters
+process_parameters(arg1, arg2)
+
+# Get the account total bucket storage utilization
+# with prefix filtering support
+# bucket_name: the name of the bucket
+# target_prefix: the prefix to be used to filter
+def get_acct_bucket_utilization(bucket_name, target_prefix):
+
     # Bucket Consumed object total size
     total_objects_size = 0
     profile = TARGET_PROFILE
 
-    # Specify the targets    
-    target_bucket = "a-cloudnas-bucket-backup"
-    target_prefix = ""
-
     # Get s3 client with the profile specified
     s3 = getS3Client(profile)
     
-
-    bucket_name = target_bucket
     print(f'Bucket name: {bucket_name}') 
 
     # Get s3 client from the bucket (with optin supported)
@@ -130,7 +147,14 @@ def main():
         return
 
     for obj in dict_objects:
-        # print(f"-- {obj['Key']}")
+        key_name = obj['Key']
+
+        if not key_name.startswith(target_prefix):
+            print(f"-- skipping {key_name}")
+            continue
+
+        print(f"-- {key_name}")
+
         lastModified = obj['LastModified'].strftime('%A, %B %d, %Y %I:%M %p')
         # print(f"------ {lastModified}")
     
@@ -143,6 +167,27 @@ def main():
 
     # Show the storage size 
     show_size(total_objects_size)
+
+# main function
+# python3 <*.py> bucket_name prefix
+# bucket_name: the name of the target bucket
+# prefix: the prefix of the object to be filtered
+def main():
+
+    # Specify the default targets    
+    # default_target_bucket = "a-cloudnas-bucket-backup"
+    default_target_bucket = "kfukaya-bucket-tokyo"
+    # default_target_prefix = "shi"
+    # default_target_prefix = "ginza/"
+    default_target_prefix = "shinagawa/"
+    
+    import sys
+
+    # Get command-line arguments
+    target_bucket = sys.argv[1] if len(sys.argv) > 1 else default_target_bucket
+    target_prefix = sys.argv[2] if len(sys.argv) > 2 else default_target_prefix
+
+    get_acct_bucket_utilization(target_bucket, target_prefix)
 
 # Executed when called directly
 if __name__ == "__main__":
