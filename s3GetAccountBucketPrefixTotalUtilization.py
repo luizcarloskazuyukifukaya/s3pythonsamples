@@ -105,20 +105,6 @@ def show_size(total_objects_size):
         # print(f"******** Bucket Consumed Total Size: {kb} KB")
     print(f"******** Account Total Consumed Size: {total_objects_size} bytes")
 
-import sys
-
-# Function that takes parameters as input
-def process_parameters(arg1, arg2):
-    print("Parameter 1:", arg1)
-    print("Parameter 2:", arg2)
-
-# Get command-line arguments
-arg1 = sys.argv[1] if len(sys.argv) > 1 else "Default1"
-arg2 = sys.argv[2] if len(sys.argv) > 2 else "Default2"
-
-# Call the function with the parameters
-process_parameters(arg1, arg2)
-
 # Get the account total bucket storage utilization
 # with prefix filtering support
 # bucket_name: the name of the bucket
