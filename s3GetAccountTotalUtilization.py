@@ -71,6 +71,7 @@ def getS3ClientFromBucket(profileName: str, bucket_name: str):
                 aws_secret_access_key=aws_secret_access_key)
         
     print(f"Bucket location: {bucket_region}") 
+    return optin_s3
 
 def convert_bytes(byte_size):
     kb_size = byte_size / 1024
