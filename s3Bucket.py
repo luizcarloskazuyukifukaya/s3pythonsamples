@@ -245,3 +245,54 @@ def delete_bucket_policy(bucket_name):
     
     return True
 
+# Create an S3 Object Lock bucket
+def create_object_lock_bucket(bucket_name, region=None):
+    """Create an S3 Object Lock bucket in a specified region
+
+    If a region is not specified, the bucket is created in the S3 default
+    region (us-east-1).
+
+    :param bucket_name: Bucket to create
+    :param region: String region to create bucket in, e.g., 'us-west-2'
+    :return: True if bucket created, else False
+    """
+
+    # Wasabi URL
+    session = boto3.Session(profile_name=DEFAULT_PROFILE)
+    credentials = session.get_credentials()
+    aws_access_key_id = credentials.access_key
+    aws_secret_access_key = credentials.secret_key
+    
+    # Check if the region parameter is specified
+    if region is None:
+        region = DEFAULT_REGION
+    
+    endpoint_url = 'https://s3.' + region + DEFAULT_S3_DOMAIN
+
+    print(region)
+    print(endpoint_url)
+    #print(aws_access_key_id)
+    #print(aws_secret_access_key)
+
+    s3 = boto3.client('s3',
+                  endpoint_url=endpoint_url,
+                  aws_access_key_id=aws_access_key_id,
+                  aws_secret_access_key=aws_secret_access_key)
+
+    # Create bucket
+    try:
+        if region is None:
+            s3.create_bucket(
+                Bucket=bucket_name,
+                ObjectLockEnabledForBucket=True
+                )
+        else:
+            location = {'LocationConstraint': region}
+            s3.create_bucket(
+                Bucket=bucket_name,
+                CreateBucketConfiguration=location
+                )
+    except ClientError as e:
+        print(e)
+        return False
+    return True
