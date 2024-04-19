@@ -1,4 +1,6 @@
-# Get utilization of the account
+# Get utilization of objects filtered by bucket name and prefix
+# This should help calculate the total storage within a "folder" 
+# or based on wild card "target_prefix*"
 
 import boto3
 import datetime
@@ -104,51 +106,49 @@ def main():
     total_objects_size = 0
     profile = TARGET_PROFILE
 
+    # Specify the targets    
+    target_bucket = "a-cloudnas-bucket-backup"
+    target_prefix = ""
+
     # Get s3 client with the profile specified
     s3 = getS3Client(profile)
     
-    # List buckets
-    response = s3.list_buckets()
-    # Output the bucket names
-    print('Listing all objects within a existing bucket ....')
 
-    for bucket in response['Buckets']:
-        bucket_name = bucket["Name"]
-        print(f'Bucket name: {bucket_name}') 
+    bucket_name = target_bucket
+    print(f'Bucket name: {bucket_name}') 
 
-        # Get s3 client from the bucket (with optin supported)
-        optin_s3 = getS3ClientFromBucket(profile, bucket_name)
-        
-        objects = optin_s3.list_objects_v2(Bucket=bucket["Name"])
-        #print(objects['Name']) 
-        #print(type(objects))
-        
-        # check whether the bucket is empty or not
-        try:
-            dict_objects = objects['Contents']
-        except KeyError:
-            # print('No object found... the target bucket is empty!!!')
-            continue
+    # Get s3 client from the bucket (with optin supported)
+    optin_s3 = getS3ClientFromBucket(profile, bucket_name)
+    
+    objects = optin_s3.list_objects_v2(Bucket=bucket_name)
+    
+    # check whether the bucket is empty or not
+    try:
+        dict_objects = objects['Contents']
+    except KeyError:
+        print('No object found... the target bucket is empty!!!')
+        return
 
-        #print(type(objects['Contents']))
-        for obj in dict_objects:
-            # print(f"-- {obj['Key']}")
-            lastModified = obj['LastModified'].strftime('%A, %B %d, %Y %I:%M %p')
-            # print(f"------ {lastModified}")
-        
-            # sum up the object size that is violating the Bucket Consumed policy
-            total_objects_size = total_objects_size + int(obj['Size'])
+    for obj in dict_objects:
+        # print(f"-- {obj['Key']}")
+        lastModified = obj['LastModified'].strftime('%A, %B %d, %Y %I:%M %p')
+        # print(f"------ {lastModified}")
+    
+        # sum up the object size that is violating the Bucket Consumed policy
+        total_objects_size = total_objects_size + int(obj['Size'])
 
-        print(f"... Bucket's Total Consumed Size: {total_objects_size} ")
+    print(f"... Target Bucket: {bucket_name}")
+    print(f"... Target Prefilx: {target_prefix}")
+    print(f"... Total Consumed Size: {total_objects_size} ")
 
     # Show the storage size 
     show_size(total_objects_size)
 
 # Executed when called directly
 if __name__ == "__main__":
-    print(f"Account Total Consumed Size calculation started...")
+    print(f"Account Bucket Total Consumed Size calculation started...")
 
     # execute main
     main()
 
-    print(f"Account Total Consumed Size calculation completed.")
+    print(f"Account Bucket Total Consumed Size calculation completed.")
