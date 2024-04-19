@@ -9,7 +9,7 @@ DEFAULT_REGION = 'us-east-1' #ALWAYS
 TARGET_PROFILE = "wasabi"
 TARGET_REGION = "ap-northeast-1"
 
-def getS3Client(profileName: str) -> boto3.s3:
+def getS3Client(profileName: str) -> boto3.client:
     # Use the following code to connect using Wasabi profile from .aws/credentials file
     # session = boto3.Session(profile_name="wasabi")
     if profileName == None:
