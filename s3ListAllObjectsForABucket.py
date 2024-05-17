@@ -70,13 +70,15 @@ objects = optin_s3.list_objects_v2(Bucket=bucket_name)
 # check whether the bucket is empty or not
 try:
     dict_objects = objects['Contents']
-
+    counts = 0
     for obj in dict_objects:
         lastModified = obj['LastModified'].strftime('%A, %B %d, %Y %I:%M %p')
         if timestamp_flag == "true":
             print(f'{obj["Key"]}, "{lastModified}"')
         else:
             print(f'{obj["Key"]}')
-
+        counts = counts + 1
 except KeyError:
     print('No object found... the target bucket is empty!!!')
+
+print(f"Total objects {counts}")
