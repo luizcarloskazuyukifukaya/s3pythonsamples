@@ -6,11 +6,22 @@ DEFAULT_REGION = 'us-east-1' #ALWAYS
 default_target_region = 'ap-southeast-2'
 default_target_bucket = "centr-source-bucket"
 default_timestamp_flag = "false"
+default_prefix = ""
+default_verbose = "false"
+default_price_per_1tb = 6.99
 
 # Get command-line arguments
 target_bucket = sys.argv[1] if len(sys.argv) > 1 else default_target_bucket
 target_region = sys.argv[2] if len(sys.argv) > 2 else default_target_region
 timestamp_flag = sys.argv[3] if len(sys.argv) > 3 else default_timestamp_flag
+target_prefix = sys.argv[4] if len(sys.argv) > 4 else default_prefix
+
+# print(f"Input target_price: {type(sys.argv[5])}")
+
+target_price = float(sys.argv[5]) if len(sys.argv) > 5 else default_price_per_1tb
+# print(f"target_price: {type(target_price)}")
+
+target_verbose = sys.argv[6] if len(sys.argv) > 6 else default_verbose
 
 def convert_bytes(byte_size):
     kb_size = byte_size / 1024
@@ -38,7 +49,17 @@ def show_size(total_objects_size):
         # print(f"Total Size: {kb} KB")
     print(f"Total Size: {total_objects_size} bytes")
 
-def list_all_keys():
+def calculate_cost(total_objects_size, price_per_tb):
+    # get size per unit
+    kb, mb, gb, tb = convert_bytes(total_objects_size)
+
+    # RCS price $6.99 for TB
+    # print(f"Storage Size: {round(tb,4)} TB")
+    # print(f"Storage Cost Type: {type(round(tb,4))}")
+    print(f"Storage Price per TB: {price_per_tb}")
+    print(f"Storage Price: {round(tb*price_per_tb,4)} USD")
+
+def search_targets_and_calculate_cost():
     # Use the following code to connect using Wasabi profile from .aws/credentials file
 
     # session = boto3.Session(profile_name="wasabi")
@@ -106,24 +127,41 @@ def list_all_keys():
         try:
             dict_objects = page['Contents']
             for obj in dict_objects:
+                key_name = obj['Key']
+                
+                # filter Key with prefix
+                if not key_name.startswith(target_prefix):
+                    if target_verbose == "true":
+                        print(f"-- skipping {key_name}")
+                    continue
+                
                 lastModified = obj['LastModified'].strftime('%A, %B %d, %Y %I:%M %p')
                 if timestamp_flag == "true":
-                    print(f'{obj["Key"]}, "{lastModified}"')
+                    print(f'{obj["Key"]}, {obj["Size"]}, "{lastModified}"')
                 else:
-                    print(f'{obj["Key"]}')
+                    print(f'{obj["Key"]}, obj["Size"]')
 
-                # print(f"Size: {obj['Size']}")
+                # print(f"Size: {obj["Size"]}")
                 total_size = total_size + obj['Size']                
                 counts = counts + 1
         except KeyError:
             print('No object found... the target bucket is empty!!!')
 
+    print(f"Target Bucket: {bucket_name}")
+    print(f"Target Prefilx: {target_prefix}")
+
     print(f"Total objects {counts}")
+
+    # show total size
     show_size(total_size)
 
+        # Storage price per TB is passed
+    calculate_cost(total_size, target_price)
+
+
 def main():
-    # list keys
-    list_all_keys()
+    # Get all targets and calculate the cost (USD)
+    search_targets_and_calculate_cost()
 
 if __name__ == "__main__":
     main()
