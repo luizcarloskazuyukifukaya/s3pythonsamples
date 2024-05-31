@@ -23,6 +23,11 @@ target_price = float(sys.argv[5]) if len(sys.argv) > 5 else default_price_per_1t
 
 target_verbose = sys.argv[6] if len(sys.argv) > 6 else default_verbose
 
+def show_usage():
+    print(f'{sys.argv[0]} TARGET_BUCKET BUCKET_REGION [TIMESTAMP_FLAG: *false | true] [PREFIX: *""] [TB_PRICE: *6.99] [VERBOSE: *false]')
+    print(f'Option: []')
+    print(f'*: default')
+
 def convert_bytes(byte_size):
     kb_size = byte_size / 1024
     mb_size = kb_size / 1024
@@ -139,7 +144,7 @@ def search_targets_and_calculate_cost():
                 if timestamp_flag == "true":
                     print(f'{obj["Key"]}, {obj["Size"]}, "{lastModified}"')
                 else:
-                    print(f'{obj["Key"]}, obj["Size"]')
+                    print(f'{obj["Key"]}, {obj["Size"]}')
 
                 # print(f"Size: {obj["Size"]}")
                 total_size = total_size + obj['Size']                
@@ -160,8 +165,11 @@ def search_targets_and_calculate_cost():
 
 
 def main():
-    # Get all targets and calculate the cost (USD)
-    search_targets_and_calculate_cost()
+    if len(sys.argv) == 1:
+        show_usage()
+    else:
+        # Get all targets and calculate the cost (USD)
+        search_targets_and_calculate_cost()
 
 if __name__ == "__main__":
     main()

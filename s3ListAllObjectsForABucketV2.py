@@ -20,6 +20,11 @@ def convert_bytes(byte_size):
     
     return kb_size, mb_size, gb_size, tb_size
 
+def show_usage():
+    print(f'{sys.argv[0]} TARGET_BUCKET BUCKET_REGION [TIMESTAMP_FLAG: *false | true]')
+    print(f'Option: []')
+    print(f'*: default')
+    
 def show_size(total_objects_size):
     # get size per unit
     kb, mb, gb, tb = convert_bytes(total_objects_size)
@@ -122,8 +127,12 @@ def list_all_keys():
     show_size(total_size)
 
 def main():
-    # list keys
-    list_all_keys()
+    
+    if len(sys.argv) == 1:
+        show_usage()
+    else:
+        # list keys
+        list_all_keys()
 
 if __name__ == "__main__":
     main()
