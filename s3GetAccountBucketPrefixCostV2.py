@@ -122,7 +122,8 @@ def search_targets_and_calculate_cost():
     # #print(objects['Name']) 
     # #print(type(objects))
 
-    paginator = s3.get_paginator("list_objects_v2")
+    # paginator = s3.get_paginator("list_objects_v2")
+    paginator = s3.get_paginator("list_object_versions")
     pages = paginator.paginate(Bucket=bucket_name, Prefix="")
 
     counts = 0
