@@ -1,3 +1,5 @@
 # ignore python execution related files
 __pycache__
 *.log
+*.txt
+*.csv
