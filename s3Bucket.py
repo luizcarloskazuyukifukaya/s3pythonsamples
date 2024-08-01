@@ -10,9 +10,11 @@ from botocore.exceptions import ClientError
 import json
 
 # define the default region as a global variable
-DEFAULT_REGION = 'ap-northeast-1'
+# DEFAULT_REGION = 'ap-northeast-1'
+DEFAULT_REGION = 'us-east-1'
 DEFAULT_S3_DOMAIN = '.wasabisys.com'
-DEFAULT_PROFILE = 'wasabi'
+# DEFAULT_PROFILE = 'wasabi'
+DEFAULT_PROFILE = 'NVirginia1'
 
 # Create an S3 bucket
 def create_bucket(bucket_name, region=None):
@@ -79,10 +81,11 @@ def list_buckets():
     
     endpoint_url = 'https://s3.' + region + DEFAULT_S3_DOMAIN
 
+    print(DEFAULT_PROFILE)
     print(region)
     print(endpoint_url)
-    #print(aws_access_key_id)
-    #print(aws_secret_access_key)
+    print(aws_access_key_id)
+    print(aws_secret_access_key)
 
     s3 = boto3.client('s3',
                   endpoint_url=endpoint_url,
