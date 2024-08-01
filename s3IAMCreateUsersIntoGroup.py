@@ -58,7 +58,7 @@ def CreateUserInGroup(userName, groupName):
     # print(r)
         
     if no_user_creation:
-        print(f"No user found with the name of {user}")
+        print(f"No user found with the name of {userName}")
 
         # Create new user now
         r = s3.create_user(
