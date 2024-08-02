@@ -25,7 +25,7 @@ def main():
     # NewUserName = "new-user" # with serial number
     # NewUserName = "test-user" # with serial number
     NewUserName = "test500-user" # with serial number
-    groupName = "support" # static group name
+    # groupName = "support" # static group name
     # groupName = "TestGroup" # static group name
     # groupName = "TestGroup2" # static group name
     groupName = "test500" # static group name
