@@ -32,7 +32,7 @@ def main():
     
     # Create multiple users
     # user_num = 5
-    user_num = 500
+    user_num = 5
     print(f"Creating {user_num} users")
 
     for num in range(user_num):
