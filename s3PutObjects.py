@@ -7,8 +7,6 @@ def create_keys(bucket):
 
     target_bucket = bucket
     print(target_bucket)
-    # fix object file as a template
-    target_file = "data/object.txt"
     # target number of objects to be created
     max_keys = 10
     target_key_base = "dummy-key"
