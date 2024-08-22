@@ -53,6 +53,7 @@ def main():
                 'eu-central-2', 
                 'eu-west-1', 
                 'eu-west-2', 
+                'eu-south-1', 
                 'ap-northeast-1', 
                 'ap-northeast-2', 
                 'ap-southeast-1', 
