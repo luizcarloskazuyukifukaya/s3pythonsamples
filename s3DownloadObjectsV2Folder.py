@@ -56,7 +56,7 @@ def filter_by_prefix(key, prefix):
 
     if len(prefix) == 0:
         # No prefix specified, then the filtering should be skipped
-        # print("The prefix is not specified. Skip the filtering...")
+        print("The prefix is not specified. Skip the filtering...")
         return True
 
     # print("The prefix is specified. Should now filter the key with the specified prefix...")
@@ -66,7 +66,29 @@ def filter_by_prefix(key, prefix):
     else:
         return False   
 
-def list_all_keys_with_filter():
+# Check if the key is a folder
+def is_folder(key_name):
+    # str.startswith(string) to be used
+    # print(f"Compare String: '{key_name}'")    
+    
+    if key_name.endswith(DEFAULT_FOLDER_SEPARATER):
+        return True
+    else:
+        return False   
+
+# Create Local Folder
+def create_local_folder(key_name):
+    print(f"=================================")
+    print(f"TODO: create folder name: '{key_name}'")
+    print(f"=================================")
+
+# Download to Local Folder
+def download_to_local_folder(key_name):
+    print(f"=================================")
+    print(f"TODO: Download to folder name: '{key_name}'")
+    print(f"=================================")
+
+def download_keys_with_filter():
     # Use the following code to connect using Wasabi profile from .aws/credentials file
 
     # session = boto3.Session(profile_name="wasabi")
@@ -153,6 +175,11 @@ def list_all_keys_with_filter():
                     else:
                         output_str = f'{obj["Key"]}'
 
+                    # Check whether the key is folder
+                    if is_folder(obj['Key']):
+                        # TODO: Create folder for download
+                        create_local_folder(obj['Key'])
+
                     print(output_str)
 
                     # print(f"Size: {obj['Size']}")
@@ -171,7 +198,8 @@ def main():
         show_usage()
     else:
         # list keys with filter
-        list_all_keys_with_filter()
+        download_keys_with_filter()
+        # print(f'Result: {is_folder("folder")}')
 
 if __name__ == "__main__":
     main()
