@@ -179,6 +179,9 @@ def download_keys_with_filter():
                     if is_folder(obj['Key']):
                         # TODO: Create folder for download
                         create_local_folder(obj['Key'])
+                    else:
+                        # download the object to a local folder
+                        download_to_local_folder(obj['Key'])
 
                     print(output_str)
 
