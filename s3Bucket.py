@@ -13,8 +13,8 @@ import json
 # DEFAULT_REGION = 'ap-northeast-1'
 DEFAULT_REGION = 'us-east-1'
 DEFAULT_S3_DOMAIN = '.wasabisys.com'
-# DEFAULT_PROFILE = 'wasabi'
-DEFAULT_PROFILE = 'NVirginia1'
+DEFAULT_PROFILE = 'wasabi'
+# DEFAULT_PROFILE = 'NVirginia1'
 
 # Create an S3 bucket
 def create_bucket(bucket_name, region=None):
